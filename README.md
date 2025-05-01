@@ -64,6 +64,142 @@ VERBOSE_EVAL = 50 #Print out metric result
 
 **Read the data**
 
+```python
+df = pd.read_csv('path')
+```
+
+### 2. Data Inspection & Preparation
+**Check the data**
+
+```python
+print("Credit Card Fraud Detection data -  rows:",df.shape[0],", columns:", df.shape[1])
+```
+![image](https://github.com/user-attachments/assets/d9d148aa-cba8-49e7-b46b-ba7541d3f37a)
+
+**Glimpse the data**
+
+```python
+df.head()
+```
+
+Generate descriptive statistics
+```python
+df.describe()
+```
+we can confirm that the data contains 284,807 transactions, during 2 consecutive days (or 172792 seconds).
+
+**Check missing data**
+
+```python
+print(df.isnull().sum())
+```
+![image](https://github.com/user-attachments/assets/ead3040f-68f7-48c1-ac3c-23901824b861)
+There is no missing data in the entire dataset.
+
+**Check data unbalance**
+
+```python
+sns.countplot(x='Class', data=df)
+plt.title("0: Legitimate vs 1: Fraud")
+plt.show()
+print(df['Class'].value_counts(normalize=True))
+```
+![image](https://github.com/user-attachments/assets/3de49219-cb04-4e3a-bb83-2054650f37f7)
+
+### 3. Exploratory Data Analysis (EDA)
+Visualize transaction density over time for both classes using distribution plots (Plotly ff.create_distplot) to observe patterns; fraudulent transactions showed a more even distribution.
+
+**Transactions in time**
+
+```python
+class_0 = df.loc[df['Class'] == 0]["Time"]
+class_1 = df.loc[df['Class'] == 1]["Time"]
+
+hist_data = [class_0, class_1]
+group_labels = ['Not Fraud', 'Fraud']
+
+fig = ff.create_distplot(hist_data, group_labels, show_hist=False, show_rug=False)
+fig['layout'].update(title='Credit Card Transactions Time Density Plot', xaxis=dict(title='Time [s]'))
+iplot(fig, filename='dist_only')
+```
+![image](https://github.com/user-attachments/assets/0a7966d4-cafb-4802-8204-55cc82970c0c)
+
+**Aggregate transaction statistics (min, max, count, sum, mean, median, variance) per hour for both classes.**
+
+```python
+df['Hour'] = df['Time'].apply(lambda x: np.floor(x / 3600))
+
+tmp = df.groupby(['Hour', 'Class'])['Amount'].aggregate(['min', 'max', 'count', 'sum', 'mean', 'median', 'var']).reset_index()
+df = pd.DataFrame(tmp)
+df.columns = ['Hour', 'Class', 'Min', 'Max', 'Transactions', 'Sum', 'Mean', 'Median', 'Var']
+df.head()
+```
+![image](https://github.com/user-attachments/assets/eecfb8c8-0377-456b-b8af-016a1cd0fdee)
+
+**Visualize aggregated transaction sums and means per hour.**
+
+```python
+fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(18,6))
+s = sns.lineplot(ax = ax1, x="Hour", y="Sum", data=df.loc[df.Class==0])
+s = sns.lineplot(ax = ax2, x="Hour", y="Sum", data=df.loc[df.Class==1], color="red")
+plt.suptitle("Total Amount")
+plt.show();
+```
+![image](https://github.com/user-attachments/assets/76119677-7472-4c3f-8f67-0d2ca2789b9b)
+
+```python
+fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(18,6))
+s = sns.lineplot(ax = ax1, x="Hour", y="Transactions", data=df.loc[df.Class==0])
+s = sns.lineplot(ax = ax2, x="Hour", y="Transactions", data=df.loc[df.Class==1], color="red")
+plt.suptitle("Total Number of Transactions")
+plt.show();
+```
+![image](https://github.com/user-attachments/assets/04012331-74b5-4b5f-b2b4-e7cffdc0136f)
+
+```python
+fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(18,6))
+s = sns.lineplot(ax = ax1, x="Hour", y="Mean", data=df.loc[df.Class==0])
+s = sns.lineplot(ax = ax2, x="Hour", y="Mean", data=df.loc[df.Class==1], color="red")
+plt.suptitle("Average Amount of Transactions")
+plt.show();
+```
+![image](https://github.com/user-attachments/assets/e875fdac-8de4-410a-9edc-ac348ed8568a)
+
+```python
+fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(18,6))
+s = sns.lineplot(ax = ax1, x="Hour", y="Max", data=df.loc[df.Class==0])
+s = sns.lineplot(ax = ax2, x="Hour", y="Max", data=df.loc[df.Class==1], color="red")
+plt.suptitle("Maximum Amount of Transactions")
+plt.show();
+```
+![image](https://github.com/user-attachments/assets/e207e27c-94c5-41a6-afe6-dbd6e5617de3)
+
+```python
+fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(18,6))
+s = sns.lineplot(ax = ax1, x="Hour", y="Median", data=df.loc[df.Class==0])
+s = sns.lineplot(ax = ax2, x="Hour", y="Median", data=df.loc[df.Class==1], color="red")
+plt.suptitle("Median Amount of Transactions")
+plt.show();
+```
+![image](https://github.com/user-attachments/assets/683b163d-1683-43fd-b776-70b153092c74)
+
+```python
+fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(18,6))
+s = sns.lineplot(ax = ax1, x="Hour", y="Min", data=df.loc[df.Class==0])
+s = sns.lineplot(ax = ax2, x="Hour", y="Min", data=df.loc[df.Class==1], color="red")
+plt.suptitle("Minimum Amount of Transactions")
+plt.show();
+```
+![image](https://github.com/user-attachments/assets/14af20a8-08ee-4e77-96a5-281500463991)
+
+
+
+
+
+
+
+
+
 
 
 
