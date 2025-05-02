@@ -14,9 +14,10 @@ Instead, the dataset primarily consists of 28 numerical features (V1 to V28) der
 - Compare the predictive performance of RandomForestClassifier and XGBoost using the ROC-AUC metric.
 - Establish a baseline for fraud detection on this dataset.
 
-## 📂 Dataset used
+### 📁 Download Dataset
 - Kaggle
-  <a href="">csv</a>
+[Download Dataset from Google Drive]https://drive.google.com/file/d/1HRVxmmhNT3-OPhYFt_YeKwK5cfHVW6K4/view?usp=sharing
+*(Hosted externally due to GitHub's file size limits)*
 - Python
   <a href="">codes</a>
 
