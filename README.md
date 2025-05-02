@@ -8,7 +8,7 @@ Credit card fraud detection predictive models are crucial for protecting finance
 - This project aims to develop and evaluate machine learning models for detecting fraudulent credit card transactions. The analysis uses a dataset containing transactions made by European cardholders over two consecutive days in September 2013. This dataset is notable for its severe class imbalance, with only 492 fraudulent transactions (0.172%) out of a total of 284,807. Due to confidentiality, the original transaction features are not available. 
 - Instead, the dataset primarily consists of 28 numerical features (V1 to V28) derived from a Principal Component Analysis (PCA) transformation of the original data. The only features not transformed by PCA are 'Time' (seconds elapsed between each transaction and the first transaction) and 'Amount' (transaction value). The target variable, 'Class', indicates fraud (1) or legitimacy (0).
 
-## 🎯 Objectives
+## 🎯 Key Objectives
 - Develop robust machine learning models capable of accurately identifying fraudulent credit card transactions within a highly imbalanced dataset.
 - Perform thorough exploratory data analysis to understand transaction patterns and feature characteristics.
 - Compare the predictive performance of RandomForestClassifier and XGBoost using the ROC-AUC metric.
@@ -330,14 +330,8 @@ The **AUC score** for the prediction of **fresh data** (test set) is **0.976**.
 ## 🔁 Conclusion & Next Steps
 The analysis successfully demonstrated the application of machine learning for credit card fraud detection on an imbalanced, PCA-transformed dataset. XGBoost emerged as the superior model, achieving a high ROC-AUC score of 0.976 on the unseen test data, indicating its effectiveness in distinguishing fraudulent from legitimate transactions under these conditions. The RandomForestClassifier provided a baseline but was significantly outperformed.
 
-**Next Steps:**
+### Next Steps:
 - Conduct comprehensive hyperparameter tuning for XGBoost (e.g., using **GridSearchCV or RandomizedSearchCV**) to potentially further enhance performance.
 - Explore **feature engineering** possibilities, particularly with the **'Time'** and **'Amount'** features, perhaps by creating cyclical time features or scaling 'Amount'.
 - Evaluate other advanced classification models suitable for imbalanced data, such as **LightGBM, CatBoost**, or potentially deep learning approaches (e.g., **Autoencoders, LSTMs** if sequential patterns are relevant).
-
-
-
-
-
-
 
