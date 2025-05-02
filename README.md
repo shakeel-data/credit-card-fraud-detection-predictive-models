@@ -1,6 +1,6 @@
 # 💳 Credit Card Fraud Deduction Predictive Models | RadomForestClassifier + XGBOOST
 <p align="center">
-  <img src="C:\Users\shake\Downloads\images.jpeg" alt="Fraud detection model" width="600">
+  <img src="![images](https://github.com/user-attachments/assets/4b223f70-8cf7-46ca-a030-bdb3aab29ec3)" alt="Fraud detection model" width="600">
 </p>
 
 Credit card fraud detection predictive models are crucial for protecting finances, enhancing security by proactively identifying evolving threats in real-time, and improving customer experience by minimizing disruptions from false positives. They also boost operational efficiency through automation and scalability, and help financial institutions meet regulatory requirements. These models analyze transaction data using machine learning to identify fraud patterns, enabling timely intervention and reducing financial losses for both cardholders and institutions. In short, these models are vital for a secure and efficient financial ecosystem.
