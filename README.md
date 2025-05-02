@@ -9,10 +9,10 @@ Credit card fraud detection predictive models are crucial for protecting finance
 - Instead, the dataset primarily consists of **28** numerical features **(V1 to V28)** derived from a **Principal Component Analysis (PCA)** transformation of the original data. The only features not transformed by PCA are 'Time' (seconds elapsed between each transaction and the first transaction) and 'Amount' (transaction value). The target variable, 'Class', indicates **fraud (1) or legitimacy (0).**
 
 ## 🎯 Key Objectives
-- Develop robust machine learning models capable of accurately identifying fraudulent credit card transactions within a highly imbalanced dataset.
-- Perform thorough exploratory data analysis to understand transaction patterns and feature characteristics.
-- Compare the predictive performance of XGBoost and LightGBM using the ROC-AUC metric.
-- Establish a baseline for fraud detection on this dataset.
+- Develop robust machine learning models capable of **accurately identifying fraudulent credit card transactions** within a highly imbalanced dataset.
+- Perform thorough **exploratory data analysis** to understand transaction patterns and **feature characteristics.**
+- Compare the predictive performance of **XGBoost** and **LightGBM** using the ROC-AUC metric.
+- Establish a baseline for **fraud detection on this dataset**.
 
 ### 📁 Data Sources
 - Kaggle
