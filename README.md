@@ -322,10 +322,11 @@ The **AUC score** for the prediction of **fresh data** (test set) is **0.976**.
 - **Data Quality:** The dataset was complete with no missing values.
 
 ## ☁️ Technologies and Tools
-- **Python** (numpy, pandas, matplotlib, seaborn, plotly)
-- **Machine Learning** (Scikit-learn [train_test_split, RandomForestClassifier, roc_auc_score], XGBoost [xgb.DMatrix, xgb.train]
-- **Google Colab** (Interactive environment for coding and presenting analysis)
 - **Kaggle** (dataset source)
+- **Google Colab** (Interactive environment for coding and presenting analysis)
+- **Python** ```numpy```, ```pandas```, ```matplotlib```, ```seaborn```, ```plotly```
+- **Machine Learning** Scikit-learn:```train_test_split```, ```RandomForestClassifier```, ```roc_auc_score``` XGBoost: ```xgb.DMatrix```, ```xgb.train```
+
 
 ## 🔁 Conclusion & Next Steps
 The analysis successfully demonstrated the application of machine learning for credit card fraud detection on an imbalanced, PCA-transformed dataset. XGBoost emerged as the superior model, achieving a high ROC-AUC score of 0.976 on the unseen test data, indicating its effectiveness in distinguishing fraudulent from legitimate transactions under these conditions. The RandomForestClassifier provided a baseline but was significantly outperformed.
