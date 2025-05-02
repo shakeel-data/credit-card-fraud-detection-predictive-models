@@ -19,7 +19,7 @@ This project aims to develop and evaluate machine learning models for detecting 
   <a href="">codes</a>
 
 ## 🔄 Project Workflow
-### 1. Load pakages and Data Ingestion
+### 1. Load Packages and Data Ingestion
 Import necessary Python libraries (Pandas, NumPy, Scikit-learn, XGBoost, visualization tools) and load the creditcard.csv dataset.
 
 ```python
@@ -62,14 +62,14 @@ OPT_ROUNDS = 1000  #To be adjusted based on best validation rounds
 VERBOSE_EVAL = 50 #Print out metric result
 ```
 
-#### Read the data
+**Read the data**
 
 ```python
 df = pd.read_csv('path')
 ```
 
-### 2.🛠️ Data Inspection & Preparation
-#### Check the data
+### 2.🛠️ Data Inspection and Preparation
+**Check the data**
 
 ```python
 print("Credit Card Fraud Detection data -  rows:",df.shape[0],", columns:", df.shape[1])
@@ -82,7 +82,7 @@ print("Credit Card Fraud Detection data -  rows:",df.shape[0],", columns:", df.s
 df.head()
 ```
 
-Generate descriptive statistics
+**Generate descriptive statistics**
 ```python
 df.describe()
 ```
@@ -201,7 +201,6 @@ plt.show()
 ![image](https://github.com/user-attachments/assets/7de2add5-ef0e-41d2-97e9-092c9b8b5ca8)
 
 ## 4.🤖 Predictive Models
-Define predictors and target values
 **Define predictor features (V1-V28, Time, Amount) and the target feature ('Class')**
 - Let's define the predictor features and the target features. Categorical features, if any, are also defined. In our case, there are no categorical feature.
 
@@ -214,7 +213,6 @@ predictors = ['Time', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10
 ```
 *Split data in train, test and validation set*
 **Split the data into training (64%), validation (16%), and test (20%) sets using train_test_split**
-Let's define train, validation and test sets.
 
 ```python
 train_df, test_df = train_test_split(df, test_size=TEST_SIZE, random_state=RANDOM_STATE, shuffle=True )
@@ -222,10 +220,10 @@ train_df, valid_df = train_test_split(train_df, test_size=VALID_SIZE, random_sta
 ```
 
 ### 🌲RandomForestClassifier
-- Initialize the classifier with specified parameters (n_estimators=100, n_jobs=4, criterion='gini').
-- Train the model on the training set.
-- Predict on the validation set.
-- Evaluate using ROC-AUC score.
+- Initialize the classifier with specified parameters **(n_estimators=100, n_jobs=4, criterion='gini').**
+- Train the model on the **training set.**
+- Predict on the **validation set.**
+- Evaluate using **ROC-AUC score.**
 
 ```python
 clf = RandomForestClassifier(n_jobs=NO_JOBS, 
@@ -255,11 +253,11 @@ roc_auc_score(valid_df[target].values, preds)
 The **ROC-AUC** score obtained with **RandomForrestClassifier** is **0.85**.
 
 ### ➕ XGBoost
-- Prepare data using xgb.DMatrix.
-- Define XGBoost parameters (objective='binary:logistic', eta=0.039, max_depth=2, etc.).
-- Train the XGBoost model using the training set, monitoring performance on the validation set with early stopping (based on AUC).
-- Predict probabilities on the test set using the best iteration.
-- Evaluate the test set predictions using ROC-AUC score.
+- Prepare data using **xgb.DMatrix.**
+- Define XGBoost parameters **(objective='binary:logistic', eta=0.039, max_depth=2, etc.).**
+- Train the XGBoost model using the **training set, monitoring performance** on the validation set with early stopping **(based on AUC).**
+- **Predict probabilities** on the test set using the best iteration.
+- Evaluate the test set predictions using **ROC-AUC score.**
 
 **Prepare the model**
 
