@@ -4,7 +4,8 @@
 Credit card fraud detection predictive models are crucial for protecting finances, enhancing security by proactively identifying evolving threats in real-time, and improving customer experience by minimizing disruptions from false positives. They also boost operational efficiency through automation and scalability, and help financial institutions meet regulatory requirements. These models analyze transaction data using machine learning to identify fraud patterns, enabling timely intervention and reducing financial losses for both cardholders and institutions. In short, these models are vital for a secure and efficient financial ecosystem.
 
 ## 📘 Project Overview
-This project aims to develop and evaluate machine learning models for detecting fraudulent credit card transactions. The analysis uses a dataset containing transactions made by European cardholders over two consecutive days in September 2013. This dataset is notable for its severe class imbalance, with only 492 fraudulent transactions (0.172%) out of a total of 284,807. Due to confidentiality, the original transaction features are not available. Instead, the dataset primarily consists of 28 numerical features (V1 to V28) derived from a Principal Component Analysis (PCA) transformation of the original data. The only features not transformed by PCA are 'Time' (seconds elapsed between each transaction and the first transaction) and 'Amount' (transaction value). The target variable, 'Class', indicates fraud (1) or legitimacy (0).
+This project aims to develop and evaluate machine learning models for detecting fraudulent credit card transactions. The analysis uses a dataset containing transactions made by European cardholders over two consecutive days in September 2013. This dataset is notable for its severe class imbalance, with only 492 fraudulent transactions (0.172%) out of a total of 284,807. Due to confidentiality, the original transaction features are not available. 
+Instead, the dataset primarily consists of 28 numerical features (V1 to V28) derived from a Principal Component Analysis (PCA) transformation of the original data. The only features not transformed by PCA are 'Time' (seconds elapsed between each transaction and the first transaction) and 'Amount' (transaction value). The target variable, 'Class', indicates fraud (1) or legitimacy (0).
 
 ## 🎯 Objectives
 - Develop robust machine learning models capable of accurately identifying fraudulent credit card transactions within a highly imbalanced dataset.
@@ -20,7 +21,7 @@ This project aims to develop and evaluate machine learning models for detecting 
 
 ## 🔄 Project Workflow
 ### 1. Load Packages and Data Ingestion
-Import necessary Python libraries (Pandas, NumPy, Scikit-learn, XGBoost, visualization tools) and load the creditcard.csv dataset.
+Import necessary Python libraries **(Pandas, NumPy, Scikit-learn, XGBoost, visualization tools)** and load the creditcard.csv dataset.
 
 ```python
 import pandas as pd 
@@ -86,7 +87,7 @@ df.head()
 ```python
 df.describe()
 ```
-we can confirm that the data contains 284,807 transactions, during 2 consecutive days (or 172792 seconds).
+we can confirm that the data contains **284,807 transactions, during 2 consecutive days (or 172792 seconds).**
 
 **Check missing data**
 
@@ -94,7 +95,7 @@ we can confirm that the data contains 284,807 transactions, during 2 consecutive
 print(df.isnull().sum())
 ```
 ![image](https://github.com/user-attachments/assets/ead3040f-68f7-48c1-ac3c-23901824b861)
-There is no missing data in the entire dataset.
+There is **no missing data** in the entire dataset.
 
 **Check data unbalance**
 
