@@ -15,9 +15,8 @@ Instead, the dataset primarily consists of 28 numerical features (V1 to V28) der
 - Establish a baseline for fraud detection on this dataset.
 
 ### 📁 Download Dataset
-- Kaggle
-[Download Dataset from Google Drive]https://drive.google.com/file/d/1HRVxmmhNT3-OPhYFt_YeKwK5cfHVW6K4/view?usp=sharing
-*(Hosted externally due to GitHub's file size limits)*
+https://drive.google.com/file/d/1HRVxmmhNT3-OPhYFt_YeKwK5cfHVW6K4/view?usp=sharing
+- *(Hosted externally due to GitHub's file size limits)*
 - Python
   <a href="">codes</a>
 
