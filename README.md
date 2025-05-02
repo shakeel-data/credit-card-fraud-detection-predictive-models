@@ -1,4 +1,4 @@
-#  💳 Real-time Credit Card Fraud Prediction Project | RadomForestClassifier + XGBOOST
+#  💳 Real-time Credit Card Fraud Prediction Project | XGBOOST + LightGBM
 
 ![image](https://github.com/user-attachments/assets/c3b421eb-de00-4415-8669-b02b517f02dd)
 
@@ -222,39 +222,6 @@ train_df, test_df = train_test_split(df, test_size=TEST_SIZE, random_state=RANDO
 train_df, valid_df = train_test_split(train_df, test_size=VALID_SIZE, random_state=RANDOM_STATE, shuffle=True )
 ```
 
-### 🌲RandomForestClassifier
-- Initialize the classifier with specified parameters **(n_estimators=100, n_jobs=4, criterion='gini').**
-- Train the model on the **training set.**
-- Predict on the **validation set.**
-- Evaluate using **ROC-AUC score.**
-
-```python
-clf = RandomForestClassifier(n_jobs=NO_JOBS, 
-                             random_state=RANDOM_STATE,
-                             criterion=RFC_METRIC,
-                             n_estimators=NUM_ESTIMATORS,
-                             verbose=False)
-```
-
-Let's train the **RandonForestClassifier** using the **train_df** data and **fit** function.
-
-```python
-clf.fit(train_df[predictors], train_df[target].values)
-```
-Now predict the target values for the **valid_df data, using predict function**.
-
-```python
-preds = clf.predict(valid_df[predictors])
-```
-
-**calculate the ROC-AUC score**
-
-```python
-roc_auc_score(valid_df[target].values, preds)
-```
-![image](https://github.com/user-attachments/assets/308b6eb6-603b-48be-80d3-52ecf3513d24)
-The **ROC-AUC** score obtained with **RandomForrestClassifier** is **0.85**.
-
 ### ➕ XGBoost
 - Prepare data using **xgb.DMatrix.**
 - Define XGBoost parameters **(objective='binary:logistic', eta=0.039, max_depth=2, etc.).**
@@ -305,6 +272,7 @@ fig, (ax) = plt.subplots(ncols=1, figsize=(8,5))
 xgb.plot_importance(model, height=0.8, title="Features importance (XGBoost)", ax=ax, color="green") 
 plt.show()
 ```
+![image](https://github.com/user-attachments/assets/a9afdfc1-f4eb-4bf3-a48d-8a68823dbae5)
 
 **Predict test set**
 
@@ -312,13 +280,92 @@ plt.show()
 preds = model.predict(dtest)
 ```
 
-**Area under curve**
+**Area Under Curve**
 
 ```python
 roc_auc_score(test_df[target].values, preds)
 ```
 ![image](https://github.com/user-attachments/assets/8a6713ea-3fb2-4b9d-8907-975df37ede4e)
 The **AUC score** for the prediction of **fresh data** (test set) is **0.976**.
+
+### ⚡ LightGBM
+- Define **model parameters**
+ - Set the parameters for the model. We will use these parameters only for the first lgb model.
+
+```python
+params = {
+          'boosting_type': 'gbdt',
+          'objective': 'binary',
+          'metric':'auc',
+          'learning_rate': 0.05,
+          'num_leaves': 7,  # we should let it be smaller than 2^(max_depth)
+          'max_depth': 4,  # -1 means no limit
+          'min_child_samples': 100,  # Minimum number of data need in a child(min_data_in_leaf)
+          'max_bin': 100,  # Number of bucketed bin for feature values
+          'subsample': 0.9,  # Subsample ratio of the training instance.
+          'subsample_freq': 1,  # frequence of subsample, <=0 means no enable
+          'colsample_bytree': 0.7,  # Subsample ratio of columns when constructing each tree.
+          'min_child_weight': 0,  # Minimum sum of instance weight(hessian) needed in a child(leaf)
+          'min_split_gain': 0,  # lambda_l1, lambda_l2 and min_gain_to_split to regularization
+          'nthread': 8,
+          'verbose': 0,
+          'scale_pos_weight':150, # because training data is extremely unbalanced 
+         }
+```
+
+**Prepare the model**
+
+```python
+dtrain = lgb.Dataset(train_df[predictors].values, 
+                     label=train_df[target].values,
+                     feature_name=predictors)
+
+dvalid = lgb.Dataset(valid_df[predictors].values,
+                     label=valid_df[target].values,
+                     feature_name=predictors)
+```
+
+**Run the model**
+
+```python
+evals_results = {}
+
+model = lgb.train(params, 
+                  dtrain, 
+                  valid_sets=[dtrain, dvalid], 
+                  valid_names=['train','valid'], 
+                  num_boost_round=MAX_ROUNDS,
+                  callbacks=[lgb.early_stopping(2 * EARLY_STOP), lgb.log_evaluation(VERBOSE_EVAL)],
+                  feval=None)
+
+# Store evaluation results
+evals_results = model.evals_result
+```
+![image](https://github.com/user-attachments/assets/afb85053-1e32-4789-8668-cfedae12ad29)
+Best validation score was obtained for **AUC** ~= **0.957.**
+
+**Plot variable Importance.**
+
+```python
+fig, (ax) = plt.subplots(ncols=1, figsize=(8,5))
+lgb.plot_importance(model, height=0.8, title="Features importance (LightGBM)", ax=ax,color="purple") 
+plt.show()
+```
+![image](https://github.com/user-attachments/assets/81dd76c3-1c8d-4d3b-803a-e8f57dabecfb)
+
+**Predict test data**
+
+```python
+preds = model.predict(test_df[predictors])
+```
+**Area Under Curve**
+Calculate the **ROC-AUC score** for the prediction.
+
+```python
+roc_auc_score(test_df[target].values, preds)
+```
+![image](https://github.com/user-attachments/assets/f39385e1-231a-48dc-b74e-404190ac254c)
+The **ROC-AUC** score obtained for the test set is **0.947.**
 
 
 ## 🌟 Highlights and Key Insights
