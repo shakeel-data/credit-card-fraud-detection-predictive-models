@@ -1,4 +1,4 @@
-# 💳 Credit Card Fraud Deduction Predictive Models | RadomForestClassifier + XGBOOST
+#  💳 Credit Card Fraud Deduction Predictive Models | RadomForestClassifier + XGBOOST
 
 ![image](https://github.com/user-attachments/assets/bc771cac-0c6d-4c82-9b10-ebb136494d52)
 
@@ -14,7 +14,7 @@ Credit card fraud detection predictive models are crucial for protecting finance
 - Compare the predictive performance of RandomForestClassifier and XGBoost using the ROC-AUC metric.
 - Establish a baseline for fraud detection on this dataset.
 
-### 📁 Data
+### 📁 Data Sources
 - Kaggle
 https://drive.google.com/file/d/1HRVxmmhNT3-OPhYFt_YeKwK5cfHVW6K4/view?usp=sharing
 **(Hosted externally due to GitHub's file size limits)**
@@ -321,7 +321,7 @@ The **AUC score** for the prediction of **fresh data** (test set) is **0.976**.
 - **Model Performance:** XGBoost demonstrated significantly better performance (Test ROC-AUC: 0.976) compared to the baseline RandomForestClassifier (Validation ROC-AUC: 0.85) on this task. XGBoost's validation AUC reached 0.979 during training.
 - **Data Quality:** The dataset was complete with no missing values.
 
-## ☁️ Technologies and Tools Used
+## ☁️ Technologies and Tools
 - **Python** (numpy, pandas, matplotlib, seaborn, plotly)
 - **Machine Learning** (Scikit-learn [train_test_split, RandomForestClassifier, roc_auc_score], XGBoost [xgb.DMatrix, xgb.train]
 - **Google Colab** (Interactive environment for coding and presenting analysis)
@@ -334,8 +334,6 @@ The analysis successfully demonstrated the application of machine learning for c
 - Conduct comprehensive hyperparameter tuning for XGBoost (e.g., using **GridSearchCV or RandomizedSearchCV**) to potentially further enhance performance.
 - Explore **feature engineering** possibilities, particularly with the **'Time'** and **'Amount'** features, perhaps by creating cyclical time features or scaling 'Amount'.
 - Evaluate other advanced classification models suitable for imbalanced data, such as **LightGBM, CatBoost**, or potentially deep learning approaches (e.g., **Autoencoders, LSTMs** if sequential patterns are relevant).
-
-
 
 
 
