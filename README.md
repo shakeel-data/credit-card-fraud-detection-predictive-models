@@ -43,12 +43,7 @@ from datetime import datetime
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import KFold
 from sklearn.metrics import roc_auc_score
-from sklearn.ensemble import RandomForestClassifier
 import xgboost as xgb
-
-RFC_METRIC = 'gini'  #metric used for RandomForrestClassifier
-NUM_ESTIMATORS = 100 #number of estimators used for RandomForrestClassifier
-NO_JOBS = 4 #number of parallel jobs used for RandomForrestClassifier
 
 
 #TRAIN/VALIDATION/TEST SPLIT
@@ -222,7 +217,7 @@ train_df, test_df = train_test_split(df, test_size=TEST_SIZE, random_state=RANDO
 train_df, valid_df = train_test_split(train_df, test_size=VALID_SIZE, random_state=RANDOM_STATE, shuffle=True )
 ```
 
-### ➕ XGBoost
+### ✖️ XGBoost
 - Prepare data using **xgb.DMatrix.**
 - Define XGBoost parameters **(objective='binary:logistic', eta=0.039, max_depth=2, etc.).**
 - Train the XGBoost model using the **training set, monitoring performance** on the validation set with early stopping **(based on AUC).**
@@ -381,8 +376,9 @@ The **ROC-AUC** score obtained for the test set is **0.947.**
 - **Python**
   - Libraries: ```numpy```, ```pandas```, ```matplotlib```, ```seaborn```, ```plotly```
 - **Machine Learning** – Model development and evaluation
-  - Scikit-learn:```train_test_split```, ```RandomForestClassifier```, ```roc_auc_score```
+  - Scikit-learn:```train_test_split```, ```roc_auc_score```
   - XGBoost: ```xgb.DMatrix```, ```xgb.train```
+  - LightGBM: ```lgb.train```
 
 ## 🔚🔁 Conclusion & Next Steps
 The analysis successfully demonstrated the application of machine learning for credit card fraud detection on an imbalanced, PCA-transformed dataset. XGBoost emerged as the superior model, achieving a high ROC-AUC score of **0.976** on the unseen test data, indicating its effectiveness in distinguishing fraudulent from legitimate transactions under these conditions. The RandomForestClassifier provided a baseline but was significantly outperformed.
