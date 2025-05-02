@@ -325,7 +325,9 @@ The **AUC score** for the prediction of **fresh data** (test set) is **0.976**.
 - **Kaggle** (dataset source)
 - **Google Colab** (Interactive environment for coding and presenting analysis)
 - **Python** ```numpy```, ```pandas```, ```matplotlib```, ```seaborn```, ```plotly```
-- **Machine Learning** Scikit-learn:```train_test_split```, ```RandomForestClassifier```, ```roc_auc_score``` XGBoost: ```xgb.DMatrix```, ```xgb.train```
+- **Machine Learning** (Model development and evaluation)
+  - Scikit-learn:```train_test_split```, ```RandomForestClassifier```, ```roc_auc_score```
+  - XGBoost: ```xgb.DMatrix```, ```xgb.train```
 
 
 ## 🔁 Conclusion & Next Steps
