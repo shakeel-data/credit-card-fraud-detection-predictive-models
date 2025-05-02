@@ -68,7 +68,7 @@ VERBOSE_EVAL = 50 #Print out metric result
 df = pd.read_csv('path')
 ```
 
-### 2. Data Inspection & Preparation
+### 2.🛠️ Data Inspection & Preparation
 **Check the data**
 
 ```python
@@ -106,10 +106,8 @@ print(df['Class'].value_counts(normalize=True))
 ```
 ![image](https://github.com/user-attachments/assets/3de49219-cb04-4e3a-bb83-2054650f37f7)
 
-### 3. Exploratory Data Analysis (EDA)
-Visualize transaction density over time for both classes using distribution plots (Plotly ff.create_distplot) to observe patterns; fraudulent transactions showed a more even distribution.
-
-**Transactions in time**
+### 3.📊 Exploratory Data Analysis (EDA)
+**Visualize transaction density over time for both classes using distribution plots (Plotly ff.create_distplot) to observe patterns; fraudulent transactions showed a more even distribution**
 
 ```python
 class_0 = df.loc[df['Class'] == 0]["Time"]
@@ -124,7 +122,7 @@ iplot(fig, filename='dist_only')
 ```
 ![image](https://github.com/user-attachments/assets/0a7966d4-cafb-4802-8204-55cc82970c0c)
 
-**Aggregate transaction statistics (min, max, count, sum, mean, median, variance) per hour for both classes.**
+**Aggregate transaction statistics (min, max, count, sum, mean, median, variance) per hour for both classes**
 
 ```python
 df['Hour'] = df['Time'].apply(lambda x: np.floor(x / 3600))
@@ -136,7 +134,7 @@ df.head()
 ```
 ![image](https://github.com/user-attachments/assets/eecfb8c8-0377-456b-b8af-016a1cd0fdee)
 
-**Visualize aggregated transaction sums and means per hour.**
+**Visualize aggregated transaction sums and means per hour**
 
 ```python
 fig, (ax1, ax2) = plt.subplots(ncols=2, figsize=(18,6))
@@ -192,115 +190,149 @@ plt.show();
 ```
 ![image](https://github.com/user-attachments/assets/14af20a8-08ee-4e77-96a5-281500463991)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+**Compute and visualize feature correlations using a heatmap (Seaborn heatmap)**
+
+```python
+plt.figure(figsize=(10,8))
+sns.heatmap(df.corr(), cmap='coolwarm', linewidths=0.2)
+plt.title("Feature Correlation")
+plt.show()
+```
+![image](https://github.com/user-attachments/assets/7de2add5-ef0e-41d2-97e9-092c9b8b5ca8)
+
+## 4.🤖 Predictive Models
+Define predictors and target values
+**Define predictor features (V1-V28, Time, Amount) and the target feature ('Class')**
+- Let's define the predictor features and the target features. Categorical features, if any, are also defined. In our case, there are no categorical feature.
+
+```python
+target = 'Class'
+predictors = ['Time', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10',\
+       'V11', 'V12', 'V13', 'V14', 'V15', 'V16', 'V17', 'V18', 'V19',\
+       'V20', 'V21', 'V22', 'V23', 'V24', 'V25', 'V26', 'V27', 'V28',\
+       'Amount']
+```
+*Split data in train, test and validation set*
+**Split the data into training (64%), validation (16%), and test (20%) sets using train_test_split**
+Let's define train, validation and test sets.
+
+```python
+train_df, test_df = train_test_split(df, test_size=TEST_SIZE, random_state=RANDOM_STATE, shuffle=True )
+train_df, valid_df = train_test_split(train_df, test_size=VALID_SIZE, random_state=RANDOM_STATE, shuffle=True )
+```
+
+### 🌲RandomForestClassifier
+- Initialize the classifier with specified parameters (n_estimators=100, n_jobs=4, criterion='gini').
+- Train the model on the training set.
+- Predict on the validation set.
+- Evaluate using ROC-AUC score.
+
+```python
+clf = RandomForestClassifier(n_jobs=NO_JOBS, 
+                             random_state=RANDOM_STATE,
+                             criterion=RFC_METRIC,
+                             n_estimators=NUM_ESTIMATORS,
+                             verbose=False)
+```
+
+Let's train the **RandonForestClassifier** using the **train_df** data and **fit** function.
+
+```python
+clf.fit(train_df[predictors], train_df[target].values)
+```
+Now predict the target values for the **valid_df data, using predict function**.
+
+```python
+preds = clf.predict(valid_df[predictors])
+```
+
+**calculate the ROC-AUC score**
+
+```python
+roc_auc_score(valid_df[target].values, preds)
+```
+![image](https://github.com/user-attachments/assets/308b6eb6-603b-48be-80d3-52ecf3513d24)
+The **ROC-AUC** score obtained with **RandomForrestClassifier** is **0.85**.
+
+### ➕ XGBoost
+- Prepare data using xgb.DMatrix.
+- Define XGBoost parameters (objective='binary:logistic', eta=0.039, max_depth=2, etc.).
+- Train the XGBoost model using the training set, monitoring performance on the validation set with early stopping (based on AUC).
+- Predict probabilities on the test set using the best iteration.
+- Evaluate the test set predictions using ROC-AUC score.
+
+**Prepare the model**
+
+```python
+# Prepare the train and valid datasets
+dtrain = xgb.DMatrix(train_df[predictors], train_df[target].values)
+dvalid = xgb.DMatrix(valid_df[predictors], valid_df[target].values)
+dtest = xgb.DMatrix(test_df[predictors], test_df[target].values)
+
+#What to monitor (in this case, **train** and **valid**)
+watchlist = [(dtrain, 'train'), (dvalid, 'valid')]
+
+# Set xgboost parameters
+params = {}
+params['objective'] = 'binary:logistic'
+params['eta'] = 0.039
+params['silent'] = True
+params['max_depth'] = 2
+params['subsample'] = 0.8
+params['colsample_bytree'] = 0.9
+params['eval_metric'] = 'auc'
+params['random_state'] = RANDOM_STATE
+```
+
+**Train the model**
+
+```python
+model = xgb.train(params, 
+                dtrain, 
+                MAX_ROUNDS, 
+                watchlist, 
+                early_stopping_rounds=EARLY_STOP, 
+                maximize=True, 
+                verbose_eval=VERBOSE_EVAL)
+```
+![image](https://github.com/user-attachments/assets/aea6aa61-14a9-4264-8d40-a50ed42a75a0)
+The best validation score **(ROC-AUC)** was **0.979**
+
+**Predict test set**
+
+```python
+preds = model.predict(dtest)
+```
+
+**Area under curve**
+
+```python
+roc_auc_score(test_df[target].values, preds)
+```
+![image](https://github.com/user-attachments/assets/8a6713ea-3fb2-4b9d-8907-975df37ede4e)
+The **AUC score** for the prediction of **fresh data** (test set) is **0.976**.
+
+
+## 🌟 Highlights and Key Insights
+- **Data Imbalance:** The dataset presents a significant challenge due to the rarity of fraud cases (0.172%).
+- **PCA Transformation:** Anonymization via PCA means feature interpretability is limited, requiring models robust to abstract features.
+- **Temporal Patterns:** Visualization revealed differing temporal distributions between fraudulent and legitimate transactions, suggesting 'Time' might hold predictive value despite PCA.
+- **Model Performance:** XGBoost demonstrated significantly better performance (Test ROC-AUC: 0.976) compared to the baseline RandomForestClassifier (Validation ROC-AUC: 0.85) on this task. XGBoost's validation AUC reached 0.979 during training.
+- **Data Quality:** The dataset was complete with no missing values.
+
+## ☁️ Technologies and Tools Used
+- **Python** (numpy, pandas, matplotlib, seaborn, plotly)
+- **Machine Learning** (Scikit-learn [train_test_split, RandomForestClassifier, roc_auc_score], XGBoost [xgb.DMatrix, xgb.train]
+- **Google Colab** (Interactive environment for coding and presenting analysis)
+- **Kaggle** (dataset source)
+
+## 🔁 Conclusion & Next Steps
+The analysis successfully demonstrated the application of machine learning for credit card fraud detection on an imbalanced, PCA-transformed dataset. XGBoost emerged as the superior model, achieving a high ROC-AUC score of 0.976 on the unseen test data, indicating its effectiveness in distinguishing fraudulent from legitimate transactions under these conditions. The RandomForestClassifier provided a baseline but was significantly outperformed.
+
+**Next Steps:**
+- Conduct comprehensive hyperparameter tuning for XGBoost (e.g., using **GridSearchCV or RandomizedSearchCV**) to potentially further enhance performance.
+- Explore **feature engineering** possibilities, particularly with the **'Time'** and **'Amount'** features, perhaps by creating cyclical time features or scaling 'Amount'.
+- Evaluate other advanced classification models suitable for imbalanced data, such as **LightGBM, CatBoost**, or potentially deep learning approaches (e.g., **Autoencoders, LSTMs** if sequential patterns are relevant).
 
 
 
