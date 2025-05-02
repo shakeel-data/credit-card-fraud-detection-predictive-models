@@ -44,6 +44,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.model_selection import KFold
 from sklearn.metrics import roc_auc_score
 import xgboost as xgb
+import lightgbm as lgb
+from lightgbm import LGBMClassifier
 
 
 #TRAIN/VALIDATION/TEST SPLIT
@@ -367,7 +369,7 @@ The **ROC-AUC** score obtained for the test set is **0.947.**
 - **Data Imbalance:** The dataset presents a significant challenge due to the rarity of **fraud cases (0.172%).**
 - **PCA Transformation:** Anonymization via **PCA** means feature interpretability is limited, requiring **models robust to abstract features.**
 - **Temporal Patterns:** Visualization revealed differing **temporal distributions between fraudulent and legitimate transactions,** suggesting 'Time' might hold predictive value despite PCA.
-- **Model Performance:** XGBoost demonstrated significantly better performance **(Test ROC-AUC: 0.976)** compared to the baseline LightGBM **(Test ROC-AUC: 0.947)** on this task. XGBoost's validation AUC reached **0.979** and  LightGBM's validation AUC reached **0.957** during training.
+- **Model Performance:** **XGBoost** demonstrated significantly better performance **(Test ROC-AUC: 0.976)** compared to the baseline **LightGBM** **(Test ROC-AUC: 0.947)** on this task. **XGBoost's** validation AUC reached **0.979** and  **LightGBM's** validation AUC reached **0.957** during training.
 - **Data Quality:** The dataset was complete with no missing values.
 
 ## ☁️ Technologies and Tools
@@ -381,7 +383,7 @@ The **ROC-AUC** score obtained for the test set is **0.947.**
   - LightGBM: ```lgb.train```
 
 ## 🔚🔁 Conclusion & Next Steps
-The analysis successfully demonstrated the application of machine learning for credit card fraud detection on an imbalanced, PCA-transformed dataset. XGBoost emerged as the superior model, achieving a high ROC-AUC score of **0.976** on the unseen test data, indicating its effectiveness in distinguishing fraudulent from legitimate transactions under these conditions. The LightGBM provided a baseline but was significantly outperformed.
+The analysis successfully demonstrated the application of machine learning for credit card fraud detection on an imbalanced, PCA-transformed dataset. **XGBoost** emerged as the superior model, achieving a high ROC-AUC score of **0.976** on the unseen test data, indicating its effectiveness in distinguishing fraudulent from legitimate transactions under these conditions. The **LightGBM** provided a baseline but was significantly outperformed.
 
 ### Next Steps:
 - Conduct comprehensive hyperparameter tuning for XGBoost (e.g., using **GridSearchCV or RandomizedSearchCV**) to potentially further enhance performance.
