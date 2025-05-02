@@ -16,7 +16,7 @@ Credit card fraud detection predictive models are crucial for protecting finance
 
 ### 📁 Data Sources
 - Kaggle
-  - (https://drive.google.com/file/d/1HRVxmmhNT3-OPhYFt_YeKwK5cfHVW6K4/view?usp=sharing)**[Hosted externally due to GitHub's file size limits]**
+  - https://drive.google.com/file/d/1HRVxmmhNT3-OPhYFt_YeKwK5cfHVW6K4/view?usp=sharing [Hosted externally due to GitHub's file size limits]
 - Python
   <a href="https://github.com/shakeel-data/credit-card-fraud-deduction-predictive-models/blob/c19aa61004a6017a6b824b2ce8304a78884b9ffb/credit_card_fraud_deduction_predictive_models.ipynb">codes</a>
 
