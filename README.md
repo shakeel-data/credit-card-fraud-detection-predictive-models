@@ -20,7 +20,7 @@ Credit card fraud detection predictive models are crucial for protecting finance
 - Python
   <a href="https://github.com/shakeel-data/credit-card-fraud-deduction-predictive-models/blob/c19aa61004a6017a6b824b2ce8304a78884b9ffb/credit_card_fraud_deduction_predictive_models.ipynb">codes</a>
 
-## 🔄 Project Workflow
+## 🔧 Project Workflow
 ### 1. Load Packages and Data Ingestion
 Import necessary Python libraries **(Pandas, NumPy, Scikit-learn, XGBoost, visualization tools)** and load the creditcard.csv dataset.
 
