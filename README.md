@@ -22,7 +22,7 @@ Credit card fraud detection predictive models are crucial for **protecting finan
 
 ## 🔧 Project Workflow
 ### 1. Load Packages and Data Ingestion
-Import necessary Python libraries **(Pandas, NumPy, Matplotlib, Seaborn, Scikit-learn, Xgb, Lgb)** and load the creditcard.csv dataset.
+Import necessary Python libraries **(Pandas, NumPy, Matplotlib, Seaborn, Plotly, Scikit-learn, Xgb, Lgb)** and load the creditcard.csv dataset.
 
 ```python
 import pandas as pd 
