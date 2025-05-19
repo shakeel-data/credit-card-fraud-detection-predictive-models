@@ -374,7 +374,7 @@ The **ROC-AUC** score obtained for the test set is **0.947.**
 ## ☁️ Technologies and Tools
 - **Kaggle** – Dataset source
 - **Google Colab** – Interactive environment for coding and presenting analysis
-- **Python**
+- **Python** – Data analysis
   - Libraries: ```numpy```, ```pandas```, ```matplotlib```, ```seaborn```, ```plotly```
 - **Machine Learning** – Model development and evaluation
   - Scikit-learn:```train_test_split```, ```roc_auc_score```, ```LGBMClassifier```
