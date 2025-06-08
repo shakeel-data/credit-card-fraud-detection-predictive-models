@@ -53,7 +53,6 @@ TEST_SIZE = 0.20 # test size using_train_test_split
 
 
 RANDOM_STATE = 2018
-
 MAX_ROUNDS = 1000 #lgb iterations
 EARLY_STOP = 50 #lgb early stop 
 OPT_ROUNDS = 1000  #To be adjusted based on best validation rounds
