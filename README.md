@@ -103,7 +103,7 @@ print(df['Class'].value_counts(normalize=True))
 ```
 ![image](https://github.com/user-attachments/assets/3de49219-cb04-4e3a-bb83-2054650f37f7)
 
-### 3.📊 Exploratory Data Analysis (EDA)
+### 3. 📊 Exploratory Data Analysis (EDA)
 **Visualize transaction density over time for both classes using distribution plots (Plotly ff.create_distplot) to observe patterns; fraudulent transactions showed a more even distribution**
 
 ```python
