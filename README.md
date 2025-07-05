@@ -65,7 +65,7 @@ VERBOSE_EVAL = 50 #Print out metric result
 df = pd.read_csv('file-path')
 ```
 
-### 2.🛠️ Data Inspection and Preparation
+### 2. 🛠️ Data Inspection and Preparation
 **Check the data**
 
 ```python
