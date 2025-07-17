@@ -197,7 +197,7 @@ plt.show()
 ```
 ![image](https://github.com/user-attachments/assets/7de2add5-ef0e-41d2-97e9-092c9b8b5ca8)
 
-## 4. 🤖 Predictive Models
+## 4. 🤖 Preparing Predictive Models
 **Define predictor features (V1-V28, Time, Amount) and the target feature ('Class')**
 - Let's define the predictor features and the target features. Categorical features, if any, are also defined. In our case, there are no categorical feature.
 
@@ -386,4 +386,3 @@ The analysis successfully demonstrated the application of machine learning for c
 - Conduct comprehensive hyperparameter tuning for XGBoost (e.g., using **GridSearchCV or RandomizedSearchCV**) to potentially further enhance performance.
 - Explore **feature engineering** possibilities, particularly with the **'Time'** and **'Amount'** features, perhaps by creating cyclical time features or scaling 'Amount'.
 - Evaluate other advanced classification models suitable for imbalanced data, such as **AdaBoost, CatBoost**, or potentially deep learning approaches (e.g., **Autoencoders, LSTMs** if sequential patterns are relevant).
-
