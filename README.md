@@ -139,7 +139,7 @@ s = sns.lineplot(ax = ax1, x="Hour", y="Sum", data=df.loc[df.Class==0])
 s = sns.lineplot(ax = ax2, x="Hour", y="Sum", data=df.loc[df.Class==1], color="red")
 plt.suptitle("Total Amount")
 plt.show();
-```
+``` 
 ![image](https://github.com/user-attachments/assets/76119677-7472-4c3f-8f67-0d2ca2789b9b)
 
 ```python
