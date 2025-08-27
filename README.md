@@ -369,7 +369,7 @@ The **ROC-AUC** score obtained for the test set is **0.947.**
 - **Model Performance:** **XGBoost** demonstrated significantly better performance **(Test ROC-AUC: 0.976)** compared to the baseline **LightGBM** **(Test ROC-AUC: 0.947)** on this task. **XGBoost's** validation AUC reached **0.979** and  **LightGBM's** validation AUC reached **0.957** during training.
 - **Data Quality:** The dataset was complete with no missing values.
 
-## ☁️ Technologies and Tools
+## ☁️ Tools and Technologies
 - **Kaggle** – Dataset source
 - **Google Colab** – Interactive environment for coding and presenting analysis
 - **Python** – Data analysis, Manipulation and Visualization 
