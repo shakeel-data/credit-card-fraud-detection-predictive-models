@@ -260,6 +260,7 @@ model = xgb.train(params,
 ![image](https://github.com/user-attachments/assets/aea6aa61-14a9-4264-8d40-a50ed42a75a0)
 The best validation score **(ROC-AUC)** was **0.979**
 
+
 **Plot Variable Importance**
 ```python
 fig, (ax) = plt.subplots(ncols=1, figsize=(8,5))
